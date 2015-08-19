@@ -2,7 +2,7 @@
 
 
 # resources
-class Resource():
+class Resource(object):
 
     # init
     def __init__(self, id, value, rate):

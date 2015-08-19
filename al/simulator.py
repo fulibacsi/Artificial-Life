@@ -8,7 +8,7 @@ from consumer import Consumer
 
 
 # handles the simulation
-class Simulator():
+class Simulator(object):
 
     # init
     def __init__(self, size, num_of_resources, num_of_consumers, resource_popup,

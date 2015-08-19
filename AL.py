@@ -47,9 +47,8 @@ if __name__ == '__main__':
 
     # run it as you like
     while ((len(sim.consumers) > 0 and len(sim.consumers) < 100)
-           and not (len(sim.consumers) == 2 and sim.round > 1000)):
+           and not (len(sim.consumers) <= 2 and sim.round > 1000)):
         sim.tick()
-        # print sim.getConsumers()
         sim.report()
 
     print 'Remaining consumers:'

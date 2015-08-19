@@ -5,7 +5,7 @@ from operator import itemgetter
 
 
 # consumer entities
-class Consumer():
+class Consumer(object):
 
     # init
     # aggression - the rating of attacking other consumers
@@ -47,7 +47,7 @@ class Consumer():
         else:
             consumers = [con for con in environment
                          if con.type == 'con' and con.id != self.id]
-            if len(consumers)-1:
+            if len(consumers):
                 return (dominant, max(consumers, key=lambda con: con.agility))
 
         # default action - random movement
