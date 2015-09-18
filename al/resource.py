@@ -12,7 +12,7 @@ class Resource(object):
         self.rate = rate
 
     # what happens, when consumed
-    def consume(self):
+    def consumed(self):
         self.value -= 1.0
         # only return the leftover
         if self.value <= 0.0:

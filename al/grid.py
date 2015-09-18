@@ -124,7 +124,7 @@ class Grid(object):
         # (y, x)
         self.size = size
         self.typer = typer
-        self.grid = self.create(self.size)
+        self.grid = self.create()
         self.zero = Tile('null', 'null')
 
     def create(self):

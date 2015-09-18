@@ -11,8 +11,8 @@ from consumer import Consumer
 class Simulator(object):
 
     # init
-    def __init__(self, size, num_of_resources, num_of_consumers, resource_popup,
-                 base_hunger, hunger_function, seed=None):
+    def __init__(self, size, num_of_resources, num_of_consumers,
+                 resource_popup, base_hunger, hunger_function, seed=None):
         # set random seed
         random.seed(seed)
         # parameter setup
@@ -81,11 +81,11 @@ class Simulator(object):
     def attack(self, attacker, attacked):
         place = self.world.where_is(attacker)
         winner, loser = sorted([attacker, attacked],
-                                key=lambda x: x.agility,
-                                reverse=True)
+                               key=lambda x: x.agility,
+                               reverse=True)
         if [attacker.id, attacked.id] == [winner.id, loser.id]:
-            msg = ('test: Consumer {0} attacked'
-                   ' and killed Consumer {1}!').format(attacker.id, attacked.id)
+            msg = ('test: Consumer {0} attacked '
+                   'and killed Consumer {1}!').format(attacker.id, attacked.id)
         else:
             msg = ('test: Consumer {0} attacked'
                    ' Consumer {1} and died!').format(attacker.id, attacked.id)
@@ -94,23 +94,23 @@ class Simulator(object):
         self.action_list.append(msg)
 
     # defines consume mechanism
-    def consume(self, consumer, consumed):
+    def consume(self, consumer, resource):
         # add to the report
         self.action_list.append(
             'Consumer {0} consumed Resource {1}!'
-            .format(consumer.id, consumed.id)
+            .format(consumer.id, resource.id)
         )
         # consume the resource, lower the hunger
-        consumer.decrease_hunger(consumed.consume())
+        consumer.decrease_hunger(resource.consumed())
         # if resource is consumed totally,
-        if not consumed.value:
+        if not resource.value:
             # remove from world
             self.world.remove_from_pos(
-                thing=consumed,
-                pos=self.world.where_is(consumed)
+                thing=resource,
+                pos=self.world.where_is(resource)
             )
             # remove from exsistence
-            self.resources.remove(consumed)
+            self.resources.remove(resource)
 
     # define reproducing
     def reproduce(self, initiator, target):
@@ -220,7 +220,7 @@ class Simulator(object):
                 self.action_list.append(msg)
                 # remove from world, and from the consumer list
                 self.world.remove_from_pos(
-                    thing=item,
+                    thing=consumer,
                     pos=self.world.where_is(consumer)
                 )
                 self.consumers.remove(consumer)
