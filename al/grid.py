@@ -203,21 +203,54 @@ class Grid(object):
                     tile.put_to(thing)
         return end
 
-    # move an object
-    # by tile number
     def move_num(self, thing, start, end):
+        """Move an object from a starting position to an end position based on
+        the Tile indeces.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to move.
+
+        start: int
+            The starting Tile's index.
+
+        end: int
+            The destination Tile's index.
+
+        Returns:
+        --------
+        end: int
+            The destination Tile's index.
+        """
         if start != end:
             self.grid[start].remove_from(thing)
             self.grid[end].put_to(thing)
         return end
 
-
-    # move an object to a direction
-    # 0 - up
-    # 1 - down
-    # 2 - right
-    # 3 - left
     def move_to_dir(self, thing, start, dir):
+        """Move an object from a starting position to a direction.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to move.
+
+        start: tuple of ints
+            The starting position.
+
+        dir: {0, 1, 2, 3}
+            Direction:
+                0 - up
+                1 - down
+                2 - right
+                3 - left
+
+        Returns:
+        --------
+        end: int
+            The destination's position.
+        """
         # determine destination
         # up
         if dir == 0:
@@ -243,49 +276,126 @@ class Grid(object):
         # move
         return self.move_pos(thing, start, end)
 
-    # remove an object
-    # by position
     def remove_from_pos(self, thing, pos):
+        """Remove an object from a Tile by Tile position.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to remove.
+
+        pos: tuple of ints
+            The target Tile's position.
+
+        Returns:
+        --------
+        None
+        """
         for tile in self.grid:
             if tile.pos == pos and tile.has(thing) > 0:
                 tile.remove_from(thing)
                 break
 
-    # remove an object
-    # by tile number
     def remove_from_num(self, thing, num):
+        """Remove an object from a Tile by Tile index.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to remove.
+
+        num: int
+            The target Tile's index.
+
+        Returns:
+        --------
+        None
+        """
         if self.grid[num].has(thing) > 0:
             self.grid[num].remove_from(thing)
 
-    # remove a type of object
-    # by position
     def remove_a_from_pos(self, thing_type, pos):
+        """Remove one object of given type from a Tile by Tile position.
+
+        Parameters:
+        -----------
+        thing_type: string
+            The type of the object to remove.
+
+        pos: tuple of ints
+            The target Tile's position.
+
+        Returns:
+        --------
+        None
+        """
         for tile in self.grid:
             if tile.pos == pos and tile.has_a(thing_type) > 0:
                 tile.remove_a_from(thing_type)
                 break
 
-    # remove a type of object
-    # by tile number
     def remove_a_from_num(self, thing_type, num):
+        """Remove one object of given type from a Tile by Tile index.
+
+        Parameters:
+        -----------
+        thing_type: string
+            The type of the object to remove.
+
+        num: int
+            The target Tile's index.
+
+        Returns:
+        --------
+        None
+        """
         if self.grid[num].has_a(thing_type) > 0:
             self.grid[num].remove_a_from(thing_type)
 
-    # put an object to a Tile
-    # by position
     def put_to_pos(self, thing, pos):
+        """Insert an object to a Tile of given position.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to insert.
+
+        pos: tuple of ints
+            The target Tile's position.
+
+        Returns:
+        --------
+        None
+        """
         for tile in self.grid:
             if tile.pos == pos:
                 tile.put_to(thing)
                 break
 
-    # put an object to a Tile
-    # by tile number
     def put_to_num(self, thing, num):
+        """Insert an object to a Tile of given index.
+
+        Parameters:
+        -----------
+        thing: object
+            The object to insert.
+
+        pos: int
+            The target Tile's index.
+
+        Returns:
+        --------
+        None
+        """
         self.grid[num].put_to(thing)
 
-    # print the grid
     def show(self):
+        """Print the grid.
+
+        Returns:
+        --------
+        None
+        """
         print 'the grid:'
         for tile in self.grid:
             print tile.pos, tile.type, tile.on_tile
